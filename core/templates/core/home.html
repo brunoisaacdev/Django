@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nome_loja }} - Artigos Esportivos</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">{{ nome_loja }}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">Sobre</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Produtos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contato</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Supere seus limites</h1>
+        <p class="lead">Os melhores produtos esportivos para sua performance</p>
+        <a href="#" class="btn btn-light btn-lg mt-3">Ver Produtos</a>
+    </div>
+</header>
+
+<!-- Destaques -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Produtos em Destaque</h2>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Tênis Running</h5>
+                        <p class="card-text">Conforto e desempenho para corrida.</p>
+                        <a href="#" class="btn btn-primary">Comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Camisa Esportiva</h5>
+                        <p class="card-text">Tecnologia dry-fit para máximo conforto.</p>
+                        <a href="#" class="btn btn-primary">Comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Bola Profissional</h5>
+                        <p class="card-text">Alta durabilidade para jogos intensos.</p>
+                        <a href="#" class="btn btn-primary">Comprar</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Categorias -->
+<section class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Categorias</h2>
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="p-4 border rounded">Futebol</div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="p-4 border rounded">Corrida</div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="p-4 border rounded">Academia</div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="p-4 border rounded">Ciclismo</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Diferenciais -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Por que escolher a {{ nome_loja }}?</h2>
+        <div class="row">
+
+            <div class="col-md-4">
+                <h5>Qualidade</h5>
+                <p>Produtos selecionados das melhores marcas.</p>
+            </div>
+
+            <div class="col-md-4">
+                <h5>Entrega Rápida</h5>
+                <p>Envio ágil para todo o Brasil.</p>
+            </div>
+
+            <div class="col-md-4">
+                <h5>Suporte</h5>
+                <p>Atendimento especializado para te ajudar.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h2>Pronto para começar?</h2>
+        <p>Explore nossos produtos e leve sua performance ao próximo nível.</p>
+        <a href="#" class="btn btn-light btn-lg">Comprar Agora</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3">
+    <p class="mb-0">&copy; 2026 {{ nome_loja }} - Todos os direitos reservados</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
