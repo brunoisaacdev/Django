@@ -1,0 +1,480 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BRUNU'S — Produtos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f8f5f0;
+            --fg: #262420;
+            --muted: #8b8680;
+            --accent: #c9704f;
+            --border: #d9d3cc;
+            --font-display: "Playfair Display", Georgia, serif;
+            --font-body: "DM Sans", system-ui, sans-serif;
+            --font-mono: "DM Mono", "Courier New", monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--fg);
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-display);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 3rem;
+                max-width: 1400px;
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transition: all 0.5s ease;
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: rgba(248, 245, 240, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 5rem;
+            padding: 0 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .navbar {
+                padding: 0 3rem;
+            }
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.18em;
+            font-weight: 600;
+            color: var(--fg);
+        }
+
+        .nav-desktop {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .nav-desktop {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(38, 36, 32, 0.7);
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--fg);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon-btn {
+            width: 1.25rem;
+            height: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(38, 36, 32, 0.7);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            color: var(--fg);
+        }
+
+        .badge {
+            position: absolute;
+            top: -0.25rem;
+            right: -0.25rem;
+            width: 0.875rem;
+            height: 0.875rem;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ===== PRODUCTS ===== */
+        .products {
+            padding: 5rem 0;
+            background: #f5f1eb;
+            margin-top: 5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.7s ease forwards;
+            opacity: 0;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        .section-title em {
+            font-style: italic;
+            font-weight: 400;
+            opacity: 0.6;
+        }
+
+        .btn-secondary {
+            font-size: 0.875rem;
+            color: rgba(38, 36, 32, 0.6);
+            text-decoration: underline;
+            text-decoration-color: rgba(38, 36, 32, 0.2);
+            text-underline-offset: 0.25rem;
+            transition: color 0.3s;
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .btn-secondary {
+                display: block;
+            }
+        }
+
+        .btn-secondary:hover {
+            color: var(--fg);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .product-card {
+            animation: fadeInUp 0.7s ease forwards;
+            opacity: 0;
+        }
+
+        .product-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .product-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .product-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .product-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .product-image {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: var(--muted);
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            background: rgba(248, 245, 240, 0.9);
+            padding: 0.375rem 0.625rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--fg);
+        }
+
+        .product-wishlist {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2rem;
+            height: 2rem;
+            background: rgba(248, 245, 240, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product-image:hover .product-wishlist {
+            opacity: 1;
+        }
+
+        .product-wishlist svg {
+            width: 0.875rem;
+            height: 0.875rem;
+            stroke-width: 1.5;
+        }
+
+        .product-wishlist.liked svg {
+            fill: var(--accent);
+            stroke: var(--accent);
+        }
+
+        .product-info {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .product-details p:first-child {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .product-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .product-price {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 500;
+            flex-shrink: 0;
+            margin-top: 1.25rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(1.5rem);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        svg {
+            width: 1em;
+            height: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header id="navbar">
+        <div class="navbar">
+
+            <!-- LOGO -->
+            <div class="logo">
+                <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">
+                    BRUNU'S
+                </a>
+            </div>
+
+            <!-- MENU -->
+            <nav class="nav-desktop">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'sobre' %}" class="nav-link">Sobre</a>
+                <a href="{% url 'produtos' %}" class="nav-link">Produtos</a>
+                <a href="{% url 'contato' %}" class="nav-link">Contato</a>
+            </nav>
+
+            <!-- AÇÕES -->
+            <div class="nav-actions">
+
+                <!-- BUSCA -->
+                <button class="icon-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    {% block conteudo %}
+
+    {% endblock %}
+
+    <script>
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos com animação
+        document.querySelectorAll('.section-header, .product-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== WISHLIST TOGGLE =====
+        function toggleWishlist(event) {
+            event.stopPropagation();
+            const btn = event.currentTarget;
+            btn.classList.toggle('liked');
+            const isLiked = btn.classList.contains('liked');
+            alert(isLiked ? 'Adicionado aos favoritos' : 'Removido dos favoritos');
+        }
+
+        console.log('✓ Navbar com scroll effect ativada');
+        console.log('✓ Seção de produtos carregada');
+        console.log('✓ Intersection Observer para animações ativado');
+    </script>
+</body>
+
+</html>

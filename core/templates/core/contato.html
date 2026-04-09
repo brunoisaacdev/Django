@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRUNU'S — Sobre</title>
+    <title>BRUNU'S — Contato</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -177,51 +177,16 @@
             font-weight: 600;
         }
 
-        /* ===== SPACER ===== */
-        .spacer {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #f8f5f0 0%, #f5f1eb 100%);
-            border-bottom: 1px solid var(--border);
+        /* ===== CONTACT SECTION ===== */
+        .contact {
             margin-top: 5rem;
-        }
-
-        .spacer-content {
-            text-align: center;
-        }
-
-        .spacer-content h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .spacer-content p {
-            color: var(--muted);
-            font-size: 0.875rem;
-        }
-
-        /* ===== MANIFESTO ===== */
-        .manifesto {
             padding: 6rem 0;
             background: var(--bg);
         }
 
-        .manifesto-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4rem;
-        }
-
-        @media (min-width: 768px) {
-            .manifesto-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 6rem;
-            }
-        }
-
-        .manifesto-quote {
+        .contact-header {
+            text-align: center;
+            margin-bottom: 4rem;
             animation: fadeInUp 0.7s ease forwards;
             opacity: 0;
         }
@@ -236,220 +201,125 @@
             margin-bottom: 0.75rem;
         }
 
-        .manifesto-quote blockquote {
-            font-family: var(--font-display);
-            font-size: 1.875rem;
-            line-height: 1.15;
-            margin-bottom: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .manifesto-quote blockquote {
-                font-size: 2.5rem;
-            }
-        }
-
-        .manifesto-quote blockquote em {
-            font-style: italic;
-            font-weight: 400;
-            opacity: 0.6;
-        }
-
-        .manifesto-divider {
-            width: 4rem;
-            height: 1px;
-            background: var(--accent);
-            margin: 1.5rem 0;
-        }
-
-        .manifesto-desc {
-            font-size: 0.875rem;
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 14rem;
-            font-weight: 300;
-            margin-bottom: 3rem;
-        }
-
-        .manifesto-number {
-            font-family: var(--font-display);
-            font-size: 8rem;
-            font-weight: 700;
-            color: #ede8e1;
-            line-height: 1;
-            margin-top: 3rem;
-        }
-
-        @media (min-width: 768px) {
-            .manifesto-number {
-                font-size: 12rem;
-            }
-        }
-
-        .manifesto-values {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            padding-top: 4rem;
-        }
-
-        @media (min-width: 768px) {
-            .manifesto-values {
-                padding-top: 0;
-            }
-        }
-
-        .value-item {
-            padding: 2rem 0;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            animation: fadeInUp 0.7s ease forwards;
-            opacity: 0;
-        }
-
-        .value-item:nth-child(1) {
-            animation-delay: 0.15s;
-        }
-
-        .value-item:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .value-item:nth-child(3) {
-            animation-delay: 0.45s;
-        }
-
-        .value-num {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--accent);
-            font-weight: 500;
-            margin-top: 0.25rem;
-            flex-shrink: 0;
-        }
-
-        .value-content h3 {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .value-content p {
-            font-size: 0.875rem;
-            color: var(--muted);
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .manifesto-values::after {
-            content: '';
-            display: block;
-            height: 1px;
-            background: var(--border);
-            margin-top: 2rem;
-        }
-
-        /* ===== NEWSLETTER ===== */
-        .newsletter {
-            background: var(--fg);
-            color: var(--bg);
-            padding: 6rem 0;
-        }
-
-        .newsletter-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-        }
-
-        @media (min-width: 768px) {
-            .newsletter-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 5rem;
-            }
-        }
-
-        .newsletter-text {
-            animation: fadeInUp 0.7s ease forwards;
-            opacity: 0;
-        }
-
-        .newsletter-text h2 {
-            font-size: 2.25rem;
-            line-height: 1.1;
+        .contact-header h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
             margin-bottom: 1.5rem;
         }
 
         @media (min-width: 768px) {
-            .newsletter-text h2 {
-                font-size: 3rem;
+            .contact-header h1 {
+                font-size: 3.5rem;
             }
         }
 
-        .newsletter-text h2 em {
+        .contact-header h1 em {
             font-style: italic;
             font-weight: 400;
             opacity: 0.6;
         }
 
-        .newsletter-text p {
+        .contact-header p {
             font-size: 0.875rem;
-            color: rgba(248, 245, 240, 0.5);
-            line-height: 1.6;
-            max-width: 12.5rem;
-            font-weight: 300;
+            color: var(--muted);
+            max-width: 30rem;
+            margin: 0 auto;
         }
 
-        .newsletter-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 6rem;
+            }
+        }
+
+        .contact-info {
             animation: fadeInUp 0.7s ease forwards;
             animation-delay: 0.2s;
             opacity: 0;
         }
 
-        .form-input {
+        .info-item {
+            margin-bottom: 2.5rem;
+        }
+
+        .info-item h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item p {
+            font-size: 0.875rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .info-item a {
+            color: var(--accent);
+            transition: color 0.3s;
+        }
+
+        .info-item a:hover {
+            color: var(--fg);
+        }
+
+        .contact-form {
+            animation: fadeInUp 0.7s ease forwards;
+            animation-delay: 0.35s;
+            opacity: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--fg);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
             width: 100%;
             background: transparent;
             border: none;
-            border-bottom: 1px solid rgba(248, 245, 240, 0.2);
+            border-bottom: 1px solid var(--border);
             outline: none;
-            padding: 1rem 3rem 1rem 0;
-            color: var(--bg);
+            padding: 0.75rem 0;
+            color: var(--fg);
             font-size: 0.875rem;
             font-family: var(--font-body);
             transition: border-color 0.3s;
         }
 
-        .form-input::placeholder {
-            color: rgba(248, 245, 240, 0.3);
+        .form-group textarea {
+            resize: vertical;
+            min-height: 6rem;
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 0.25rem;
         }
 
-        .form-input:focus {
-            border-bottom-color: rgba(248, 245, 240, 0.6);
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(38, 36, 32, 0.3);
         }
 
-        .form-wrapper {
-            position: relative;
-        }
-
-        .form-submit {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(248, 245, 240, 0.4);
-            transition: color 0.3s;
-        }
-
-        .form-input:focus~.form-submit {
-            color: var(--bg);
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
         }
 
         .form-note {
@@ -457,37 +327,24 @@
             font-size: 0.55rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: rgba(248, 245, 240, 0.25);
+            color: var(--muted);
+            margin-bottom: 1.5rem;
         }
 
-        .newsletter-proof {
-            margin-top: 2.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(248, 245, 240, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .proof-stat {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .proof-num {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 500;
+        .btn-submit {
+            background: var(--fg);
             color: var(--bg);
+            padding: 0.875rem 1.75rem;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            transition: background 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .proof-label {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: rgba(248, 245, 240, 0.4);
-            margin-top: 0.25rem;
+        .btn-submit:hover {
+            background: var(--accent);
         }
 
         /* ===== FOOTER ===== */
@@ -676,82 +533,84 @@
         </div>
     </header>
 
-
-    <!-- MANIFESTO -->
-    <section class="manifesto container">
-        <div class="manifesto-grid">
-            <div class="manifesto-quote">
-                <span class="section-label">Nossa Filosofia</span>
-                <blockquote>"O verdadeiro luxo não grita. Ele <em>sussurra</em> para quem sabe ouvir."</blockquote>
-                <div class="manifesto-divider"></div>
-                <p class="manifesto-desc">Fundada em 2012, a BRUNU'S nasceu da convicção de que moda de qualidade deve
-                    ser acessível a quem valoriza o essencial sobre o supérfluo.</p>
-                <div class="manifesto-number">XII</div>
-            </div>
-            <div class="manifesto-values">
-                <div class="value-item">
-                    <span class="value-num">I</span>
-                    <div class="value-content">
-                        <h3>Artesanato</h3>
-                        <p>Cada peça é produzida por artesãos com décadas de experiência, usando técnicas transmitidas
-                            por gerações.</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <span class="value-num">II</span>
-                    <div class="value-content">
-                        <h3>Materiais</h3>
-                        <p>Selecionamos apenas os melhores tecidos do mundo — linho belga, seda italiana, lã merino
-                            australiana.</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <span class="value-num">III</span>
-                    <div class="value-content">
-                        <h3>Atemporalidade</h3>
-                        <p>Criamos peças que transcendem tendências. Investimentos que duram décadas, não estações.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- CONTACT -->
+    <section class="contact container">
+        <div class="contact-header">
+            <span class="section-label">Entre em Contato</span>
+            <h1>Fale com a <em>BRUNU'S</em></h1>
+            <p>Estamos aqui para responder suas dúvidas, sugestões e ouvir suas histórias sobre nossas peças.</p>
         </div>
-    </section>
 
-    <!-- NEWSLETTER -->
-    <section class="newsletter container">
-        <div class="newsletter-grid">
-            <div class="newsletter-text">
-                <span class="section-label">Newsletter</span>
-                <h2>Seja o Primeiro<br>a <em>Saber</em></h2>
-                <p>Receba lançamentos exclusivos, convites para eventos privados e acesso antecipado às novas coleções.
-                </p>
-            </div>
-            <div class="newsletter-form">
-                <div class="form-wrapper">
-                    <input type="email" class="form-input" placeholder="seu@email.com" required>
-                    <button type="submit" class="form-submit" onclick="alert('Inscrição realizada!'); return false;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                            <polyline points="12 5 19 12 12 19" />
-                        </svg>
-                    </button>
+        <div class="contact-content">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="info-item">
+                    <h3>Endereço</h3>
+                    <p>
+                        Avenida Paulista, 1000<br>
+                        São Paulo, SP 01311-100<br>
+                        Brasil
+                    </p>
                 </div>
-                <p class="form-note">Ao se inscrever, você concorda com nossa política de privacidade. Sem spam, apenas
-                    conteúdo relevante.</p>
-                <div class="newsletter-proof">
-                    <div class="proof-stat">
-                        <span class="proof-num">12K+</span>
-                        <span class="proof-label">Assinantes</span>
-                    </div>
-                    <div class="proof-stat">
-                        <span class="proof-num">98%</span>
-                        <span class="proof-label">Taxa de abertura</span>
-                    </div>
-                    <div class="proof-stat">
-                        <span class="proof-num">Semanal</span>
-                        <span class="proof-label">Frequência</span>
-                    </div>
+
+                <div class="info-item">
+                    <h3>Telefone</h3>
+                    <p>
+                        <a href="tel:+551133334444">51 99011-0992</a><br>
+                        <span style="color: var(--muted);">Seg–Sex: 08h–18h</span>
+                    </p>
+                </div>
+
+                <div class="info-item">
+                    <h3>Email</h3>
+                    <p>
+                        <a href="mailto:contato@brunus.com.br">contato@brunus.com.br</a><br>
+                        <a href="mailto:vendas@brunus.com.br">vendas@brunus.com.br</a>
+                    </p>
+                </div>
+
+                <div class="info-item">
+                    <h3>Redes Sociais</h3>
+                    <p>
+                        <a href="#"
+                            onclick="window.open('https://www.instagram.com/brunoi_6', '_blank')">Instagram</a><br>
+                        <a href="#" onclick="window.open('https://github.com/brunoisaacdev', '_blank')">Github</a><br>
+                    </p>
                 </div>
             </div>
+
+            <!-- Contact Form -->
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" placeholder="Seu nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Assunto</label>
+                    <input type="text" id="subject" name="subject" placeholder="Como podemos ajudar?" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Mensagem</label>
+                    <textarea id="message" name="message" placeholder="Sua mensagem aqui..." required></textarea>
+                </div>
+
+                <p class="form-note">Responderemos em até 24 horas úteis</p>
+
+                <button type="submit" class="btn-submit">
+                    Enviar Mensagem
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                </button>
+            </form>
         </div>
     </section>
 
@@ -848,11 +707,20 @@
         }, observerOptions);
 
         // Observar elementos com animação
-        document.querySelectorAll('.manifesto-quote, .value-item, .newsletter-text, .newsletter-form').forEach(el => {
+        document.querySelectorAll('.contact-header, .contact-info, .contact-form').forEach(el => {
             observer.observe(el);
         });
 
-        console.log('✓ Navbar scroll effect ativado');
+        // ===== FORM SUBMISSION =====
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Obrigado, ${name}! Sua mensagem foi enviada com sucesso. Responderemos em breve.`);
+            event.target.reset();
+        }
+
+        console.log('✓ Navbar com scroll effect ativada');
+        console.log('✓ Página de contato carregada');
         console.log('✓ Intersection Observer para animações ativado');
     </script>
 </body>
