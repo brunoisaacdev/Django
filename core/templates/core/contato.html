@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRUNU'S — Contato</title>
+    <title>BRUNU'S — Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -516,7 +516,7 @@
                 <a href="{% url 'home' %}" class="nav-link">Home</a>
                 <a href="{% url 'sobre' %}" class="nav-link">Sobre</a>
                 <a href="{% url 'produtos' %}" class="nav-link">Produtos</a>
-                <a href="{% url 'contato' %}" class="nav-link">Contato</a>
+                <a href="{% url 'contato' %}" class="nav-link">Login</a>
             </nav>
 
             <!-- AÇÕES -->
@@ -536,9 +536,9 @@
     <!-- CONTACT -->
     <section class="contact container">
         <div class="contact-header">
-            <span class="section-label">Entre em Contato</span>
-            <h1>Fale com a <em>BRUNU'S</em></h1>
-            <p>Estamos aqui para responder suas dúvidas, sugestões e ouvir suas histórias sobre nossas peças.</p>
+            <span class="section-label">Acesse a loja com o seu cadastro</span>
+            <h1>Login na <em>BRUNU'S</em></h1>
+            <p>Entre com seu e-mail e senha para continuar</p>
         </div>
 
         <div class="contact-content">
@@ -547,8 +547,8 @@
                 <div class="info-item">
                     <h3>Endereço</h3>
                     <p>
-                        Avenida Paulista, 1000<br>
-                        São Paulo, SP 01311-100<br>
+                        Av. Venâncio Aires, 300<br>
+                        Santa Cruz do Sul, RS 96810-204<br>
                         Brasil
                     </p>
                 </div>
@@ -592,23 +592,28 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="subject">Assunto</label>
-                    <input type="text" id="subject" name="subject" placeholder="Como podemos ajudar?" required>
+                    <label for="email">Senha</label>
+                    <input type="text" id="senha" name="senha" placeholder="Sua senha" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="message">Mensagem</label>
-                    <textarea id="message" name="message" placeholder="Sua mensagem aqui..." required></textarea>
+                <div class="btn-container">
+                    <button type="submit" class="btn-submit">
+                        Cadastrar-se
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </button>
+
+                    <button type="submit" class="btn-submit">
+                        Login
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </button>
                 </div>
 
-                <p class="form-note">Responderemos em até 24 horas úteis</p>
-
-                <button type="submit" class="btn-submit">
-                    Enviar Mensagem
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                    </svg>
                 </button>
             </form>
         </div>
@@ -662,7 +667,7 @@
                 <div class="footer-col">
                     <h4>Atendimento</h4>
                     <ul>
-                        <li><a href="#" onclick="alert('Em breve'); return false;">Contato</a></li>
+                        <li><a href="#" onclick="alert('Em breve'); return false;">Login</a></li>
                         <li><a href="#" onclick="alert('Em breve'); return false;">Envios & Devoluções</a></li>
                         <li><a href="#" onclick="alert('Em breve'); return false;">Guia de Tamanhos</a></li>
                         <li><a href="#" onclick="alert('Em breve'); return false;">Cuidados com as Peças</a></li>

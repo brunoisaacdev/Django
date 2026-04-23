@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BRUNU'S — Blazer Oversize Marfim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f8f5f0;
+            --fg: #262420;
+            --muted: #8b8680;
+            --accent: #c9704f;
+            --border: #d9d3cc;
+            --font-display: "Playfair Display", Georgia, serif;
+            --font-body: "DM Sans", system-ui, sans-serif;
+            --font-mono: "DM Mono", "Courier New", monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--fg);
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-display);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 3rem;
+                max-width: 1400px;
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transition: all 0.5s ease;
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: rgba(248, 245, 240, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 5rem;
+            padding: 0 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .navbar {
+                padding: 0 3rem;
+            }
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.18em;
+            font-weight: 600;
+            color: var(--fg);
+        }
+
+        .nav-desktop {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .nav-desktop {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(38, 36, 32, 0.7);
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--fg);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon-btn {
+            width: 1.25rem;
+            height: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(38, 36, 32, 0.7);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            color: var(--fg);
+        }
+
+        .badge {
+            position: absolute;
+            top: -0.25rem;
+            right: -0.25rem;
+            width: 0.875rem;
+            height: 0.875rem;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            margin-top: 5rem;
+            padding: 1.5rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--fg);
+        }
+
+        /* ===== PRODUCT DETAIL ===== */
+        .product-detail {
+            padding: 4rem 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-section {
+            animation: fadeInUp 0.7s ease forwards;
+            opacity: 0;
+        }
+
+        .main-image {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: #e8e3db;
+            margin-bottom: 1rem;
+            cursor: zoom-in;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.3s;
+        }
+
+        .main-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .main-image.zoomed img {
+            transform: scale(1.5);
+        }
+
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .thumbnail {
+            aspect-ratio: 1;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+            background: #e8e3db;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail.active {
+            border-color: var(--accent);
+        }
+
+        .thumbnail:hover {
+            border-color: var(--fg);
+        }
+
+        /* ===== PRODUCT INFO ===== */
+        .product-info {
+            animation: fadeInUp 0.7s ease forwards;
+            animation-delay: 0.15s;
+            opacity: 0;
+        }
+
+        .product-header {
+            margin-bottom: 2rem;
+        }
+
+        .product-category {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .product-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .star {
+            color: var(--accent);
+            font-size: 0.875rem;
+        }
+
+        .rating-text {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .product-price {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: var(--muted);
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+
+        .price-discount {
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        .divider {
+            width: 3rem;
+            height: 1px;
+            background: var(--accent);
+            margin: 1.5rem 0;
+        }
+
+        .product-description {
+            font-size: 0.875rem;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* ===== SELECTORS ===== */
+        .selector-group {
+            margin-bottom: 2rem;
+        }
+
+        .selector-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--fg);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .size-options {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        .size-btn {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .size-btn:hover {
+            border-color: var(--fg);
+        }
+
+        .size-btn.selected {
+            background: var(--fg);
+            color: var(--bg);
+            border-color: var(--fg);
+        }
+
+        .size-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .color-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .color-btn.selected {
+            border-color: var(--fg);
+            box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--fg);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--border);
+            width: fit-content;
+            padding: 0.5rem;
+        }
+
+        .qty-btn {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+        }
+
+        .qty-btn:hover {
+            background: var(--border);
+        }
+
+        .qty-input {
+            width: 2rem;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 0.875rem;
+        }
+
+        /* ===== ACTIONS ===== */
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .product-actions {
+                flex-direction: row;
+            }
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            background: var(--fg);
+            color: var(--bg);
+            padding: 1rem;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            transition: background 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--accent);
+        }
+
+        .btn-wishlist {
+            flex: 1;
+            border: 1px solid var(--border);
+            padding: 1rem;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-wishlist:hover {
+            border-color: var(--fg);
+            background: var(--border);
+        }
+
+        .btn-wishlist.liked {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* ===== SPECIFICATIONS ===== */
+        .specifications {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .spec-title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .spec-item {
+            display: grid;
+            grid-template-columns: 8rem 1fr;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .spec-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .spec-value {
+            font-size: 0.875rem;
+            color: var(--fg);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(1.5rem);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        svg {
+            width: 1em;
+            height: 1em;
+            stroke-width: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header id="navbar">
+        <div class="navbar">
+
+            <!-- LOGO -->
+            <div class="logo">
+                <a href="home.html" style="text-decoration: none; color: inherit;">
+                    BRUNU'S
+                </a>
+            </div>
+
+            <!-- MENU -->
+            <nav class="nav-desktop">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'sobre' %}" class="nav-link">Sobre</a>
+                <a href="{% url 'produtos' %}" class="nav-link">Produtos</a>
+                <a href="{% url 'contato' %}" class="nav-link">Login</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="alert('Em breve'); return false;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                </button>
+                <button class="icon-btn" onclick="alert('Em breve'); return false;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="9" cy="21" r="1" />
+                        <circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <div class="badge">2</div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb container">
+        <a href="#" onclick="alert('Em breve'); return false;">Coleções</a> /
+        <a href="#" onclick="alert('Em breve'); return false;">Mulher</a> /
+        <span>Blazer Oversize Marfim</span>
+    </div>
+
+    <!-- PRODUCT DETAIL -->
+    <section class="product-detail container">
+        <div class="product-grid">
+            <!-- Gallery -->
+            <div class="gallery-section">
+                <div class="main-image" id="mainImage" onclick="toggleZoom(event)">
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/hero-fashion-HXWzAiyDt9UCms4hN7nTnf.webp"
+                        alt="Blazer Oversize Marfim">
+                </div>
+                <div class="thumbnail-gallery">
+                    <div class="thumbnail active" onclick="changeImage(this)">
+                        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/hero-fashion-HXWzAiyDt9UCms4hN7nTnf.webp"
+                            alt="Imagem 1">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this)">
+                        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/collection-women-7mb9VLhSoo3DTMnhHfMMsv.webp"
+                            alt="Imagem 2">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this)">
+                        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/collection-men-MjwiVL5kzs6YDgtUDkKJsB.webp"
+                            alt="Imagem 3">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this)">
+                        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/accessories-PApRL8CpL3ecJUtDbg6toa.webp"
+                            alt="Imagem 4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <div class="product-header">
+                    <span class="product-category">01 — Mulher / Blazers</span>
+                    <h1 class="product-title">Blazer Oversize<br><em>Marfim</em></h1>
+                    <div class="product-rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <span class="rating-text">4.9 (127 avaliações)</span>
+                    </div>
+                </div>
+
+                <div class="product-price">
+                    <span class="price-original">R$ 5.890</span>
+                    R$ 4.890
+                    <span class="price-discount">-17%</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <p class="product-description">
+                    Blazer oversize em linho belga premium com acabamento impecável. Peça versátil que combina elegância
+                    clássica com conforto moderno. Ideal para looks casuais sofisticados ou composições mais formais.
+                    Forro em algodão 100% para máximo conforto.
+                </p>
+
+                <!-- Tamanho -->
+                <div class="selector-group">
+                    <label class="selector-label">Tamanho</label>
+                    <div class="size-options">
+                        <button class="size-btn" onclick="selectSize(this)">XS</button>
+                        <button class="size-btn" onclick="selectSize(this)">S</button>
+                        <button class="size-btn selected" onclick="selectSize(this)">M</button>
+                        <button class="size-btn" onclick="selectSize(this)">L</button>
+                        <button class="size-btn" onclick="selectSize(this)">XL</button>
+                    </div>
+                </div>
+
+                <!-- Cor -->
+                <div class="selector-group">
+                    <label class="selector-label">Cor</label>
+                    <div class="color-options">
+                        <button class="color-btn selected" style="background: #f5f1eb;" onclick="selectColor(this)"
+                            title="Marfim"></button>
+                        <button class="color-btn" style="background: #d4c5b9;" onclick="selectColor(this)"
+                            title="Bege"></button>
+                        <button class="color-btn" style="background: #3d3d3d;" onclick="selectColor(this)"
+                            title="Cinza"></button>
+                        <button class="color-btn" style="background: #2a2a2a;" onclick="selectColor(this)"
+                            title="Preto"></button>
+                    </div>
+                </div>
+
+                <!-- Quantidade -->
+                <div class="selector-group">
+                    <label class="selector-label">Quantidade</label>
+                    <div class="quantity-selector">
+                        <button class="qty-btn" onclick="decreaseQty()">−</button>
+                        <input type="number" class="qty-input" id="quantity" value="1" min="1" max="10">
+                        <button class="qty-btn" onclick="increaseQty()">+</button>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="product-actions">
+                    <button class="btn-add-cart" onclick="addToCart()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="9" cy="21" r="1" />
+                            <circle cx="20" cy="21" r="1" />
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                        </svg>
+                        Adicionar ao Carrinho
+                    </button>
+                    <button class="btn-wishlist" id="wishlistBtn" onclick="toggleWishlist()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        Favoritos
+                    </button>
+                </div>
+
+                <!-- Specifications -->
+                <div class="specifications">
+                    <h3 class="spec-title">Especificações</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">Material</span>
+                        <span class="spec-value">Linho belga 100% com forro em algodão</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Cuidados</span>
+                        <span class="spec-value">Lavar à mão em água fria, não usar alvejante</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Origem</span>
+                        <span class="spec-value">Produzido em Paris, França</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Disponibilidade</span>
+                        <span class="spec-value">Em estoque (8 unidades)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // ===== IMAGE GALLERY =====
+        function changeImage(thumbnail) {
+            const mainImage = document.getElementById('mainImage');
+            const img = thumbnail.querySelector('img');
+            mainImage.querySelector('img').src = img.src;
+
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumbnail.classList.add('active');
+        }
+
+        function toggleZoom(event) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.classList.toggle('zoomed');
+        }
+
+        // ===== SIZE SELECTOR =====
+        function selectSize(btn) {
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        // ===== COLOR SELECTOR =====
+        function selectColor(btn) {
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        // ===== QUANTITY SELECTOR =====
+        function increaseQty() {
+            const input = document.getElementById('quantity');
+            if (parseInt(input.value) < 10) {
+                input.value = parseInt(input.value) + 1;
+            }
+        }
+
+        function decreaseQty() {
+            const input = document.getElementById('quantity');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        // ===== WISHLIST TOGGLE =====
+        function toggleWishlist() {
+            const btn = document.getElementById('wishlistBtn');
+            btn.classList.toggle('liked');
+            const isLiked = btn.classList.contains('liked');
+            alert(isLiked ? 'Adicionado aos favoritos!' : 'Removido dos favoritos');
+        }
+
+        // ===== ADD TO CART =====
+        function addToCart() {
+            const quantity = document.getElementById('quantity').value;
+            alert(`${quantity} Blazer Oversize Marfim adicionado ao carrinho!`);
+        }
+
+        console.log('✓ Página de detalhes do produto carregada');
+    </script>
+</body>
+
+</html>
