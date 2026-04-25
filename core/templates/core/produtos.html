@@ -1,5 +1,7 @@
 {% extends 'core/base.html' %}
 
+{% load static %}
+
 {% block conteudo %}
 
 <!-- PRODUCTS -->
@@ -13,28 +15,31 @@
     </div>
     <div class="products-grid">
         <!-- Produto 1 -->
-        <div class="product-card">
-            <div class="product-image" onclick="alert('Em breve'); return false;">
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/hero-fashion-HXWzAiyDt9UCms4hN7nTnf.webp"
-                    alt="Blazer Oversize Marfim">
-                <span class="product-tag">Novo</span>
-                <button class="product-wishlist" onclick="toggleWishlist(event)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path
-                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                    </svg>
-                </button>
-            </div>
-            <div class="product-info">
-                <div class="product-details">
-                    <p>01 — Mulher</p>
-                    <p class="product-name">Blazer Oversize Marfim</p>
+        {% for produto in produtos %}
+        <a href="{% url 'produto_detalhes' produto.id %}">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{% static produto.image  %}" alt="Blazer Oversize Marfim">
+                    <span class="product-tag">Novo</span>
+                    <button class="product-wishlist" onclick="toggleWishlist(event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                    </button>
                 </div>
-                <span class="product-price">R$ 4.890</span>
+                <div class="product-info">
+                    <div class="product-details">
+                        <p>01 — Mulher</p>
+                        <p class="product-name">{{produto.name}}</p>
+                    </div>
+                    <span class="product-price">R$ {{produto.price_brl}}</span>
+                </div>
             </div>
-        </div>
+        </a>
+        {% endfor %}
 
-        <!-- Produto 2 -->
+        <!-- Produto 2
         <div class="product-card">
             <div class="product-image" onclick="alert('Em breve'); return false;">
                 <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/collection-men-MjwiVL5kzs6YDgtUDkKJsB.webp"
@@ -54,10 +59,10 @@
                 </div>
                 <span class="product-price">R$ 6.200</span>
             </div>
-        </div>
+        </div> -->
 
         <!-- Produto 3 -->
-        <div class="product-card">
+        <!-- <div class="product-card">
             <div class="product-image" onclick="alert('Em breve'); return false;">
                 <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/collection-women-7mb9VLhSoo3DTMnhHfMMsv.webp"
                     alt="Vestido Drapeado Ivory">
@@ -75,10 +80,10 @@
                 </div>
                 <span class="product-price">R$ 5.450</span>
             </div>
-        </div>
+        </div> -->
 
         <!-- Produto 4 -->
-        <div class="product-card">
+        <!-- <div class="product-card">
             <div class="product-image" onclick="alert('Em breve'); return false;">
                 <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/accessories-PApRL8CpL3ecJUtDbg6toa.webp"
                     alt="Kit Acessórios Cognac">
@@ -97,7 +102,7 @@
                 </div>
                 <span class="product-price">R$ 3.100</span>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 {% endblock %}

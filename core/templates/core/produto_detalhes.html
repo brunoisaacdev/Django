@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -338,10 +339,10 @@
         }
 
         .price-original {
-            text-decoration: line-through;
-            color: var(--muted);
-            font-size: 1rem;
-            margin-right: 1rem;
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
         }
 
         .price-discount {
@@ -624,19 +625,28 @@
     <div class="breadcrumb container">
         <a href="#" onclick="alert('Em breve'); return false;">Coleções</a> /
         <a href="#" onclick="alert('Em breve'); return false;">Mulher</a> /
-        <span>Blazer Oversize Marfim</span>
+        <span>{{produto.name}}</span>
     </div>
-
     <!-- PRODUCT DETAIL -->
     <section class="product-detail container">
         <div class="product-grid">
             <!-- Gallery -->
             <div class="gallery-section">
                 <div class="main-image" id="mainImage" onclick="toggleZoom(event)">
-                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/hero-fashion-HXWzAiyDt9UCms4hN7nTnf.webp"
-                        alt="Blazer Oversize Marfim">
+                    <!-- <img src="{% static 'imagens/Blazer.webp' %}" alt="{{ produto.name }}"> -->
+                    <img src="{{ produto.images.first.image.url }}"
+                        alt="{{ img.alt_text|default:'Imagem do produto' }}">
                 </div>
+
                 <div class="thumbnail-gallery">
+                    {% for img in produto.images.all %}
+                    <div class="thumbnail {% if forloop.first %}active{% endif %}" onclick="changeImage(this)">
+                        <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:'Imagem do produto' }}">
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- <div class="thumbnail-gallery">
                     <div class="thumbnail active" onclick="changeImage(this)">
                         <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/hero-fashion-HXWzAiyDt9UCms4hN7nTnf.webp"
                             alt="Imagem 1">
@@ -653,14 +663,14 @@
                         <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/accessories-PApRL8CpL3ecJUtDbg6toa.webp"
                             alt="Imagem 4">
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Product Info -->
             <div class="product-info">
                 <div class="product-header">
                     <span class="product-category">01 — Mulher / Blazers</span>
-                    <h1 class="product-title">Blazer Oversize<br><em>Marfim</em></h1>
+                    <h1 class="product-title">{{produto.name}}</h1>
                     <div class="product-rating">
                         <div class="stars">
                             <span class="star">★</span>
@@ -674,17 +684,12 @@
                 </div>
 
                 <div class="product-price">
-                    <span class="price-original">R$ 5.890</span>
-                    R$ 4.890
-                    <span class="price-discount">-17%</span>
+                    <span class="price-original">R$ {{produto.price_brl}}</span>
                 </div>
 
                 <div class="divider"></div>
 
-                <p class="product-description">
-                    Blazer oversize em linho belga premium com acabamento impecável. Peça versátil que combina elegância
-                    clássica com conforto moderno. Ideal para looks casuais sofisticados ou composições mais formais.
-                    Forro em algodão 100% para máximo conforto.
+                <p class="product-description">{{produto.description}}
                 </p>
 
                 <!-- Tamanho -->
