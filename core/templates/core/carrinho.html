@@ -1,0 +1,148 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* depois mover para static/css/carrinho.css */
+
+    :root {
+        --bg-color: #F9F7F2;
+        --text-primary: #1A1A1A;
+        --text-secondary: #666666;
+        --accent-color: #A67C52;
+        --border-color: #E5E1D8;
+        --white: #FFFFFF;
+    }
+
+    .cart-container {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 4rem;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 5%;
+    }
+
+    @media (max-width: 900px) {
+        .cart-container {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .cart-title {
+        font-size: 3rem;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .cart-items {
+        border-top: 1px solid var(--border-color);
+    }
+
+    .cart-item {
+        display: flex;
+        padding: 2rem 0;
+        border-bottom: 1px solid var(--border-color);
+        gap: 1.5rem;
+    }
+
+    .item-image {
+        width: 120px;
+        height: 160px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .item-details {
+        flex-grow: 1;
+    }
+
+    .item-name {
+        font-size: 1.2rem;
+    }
+
+    .item-price {
+        font-weight: 500;
+    }
+
+    .cart-summary {
+        background: var(--white);
+        padding: 2rem;
+        height: fit-content;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .checkout-btn {
+        width: 100%;
+        padding: 1rem;
+        background: black;
+        color: white;
+        border: none;
+        margin-top: 1rem;
+    }
+</style>
+
+<main>
+    <h1 class="cart-title">Seu Carrinho</h1>
+
+    <div class="cart-container">
+
+        <!-- ITENS -->
+        <div class="cart-items">
+
+            <div class="cart-item">
+                <div class="item-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1594932224828-b4b057b7d6ee');">
+                </div>
+
+                <div class="item-details">
+                    <h2 class="item-name">Terno Greige Estruturado</h2>
+                    <p class="item-price">R$ 5.450,00</p>
+                </div>
+            </div>
+
+            <div class="cart-item">
+                <div class="item-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa');">
+                </div>
+
+                <div class="item-details">
+                    <h2 class="item-name">Kit Acessórios Cognac</h2>
+                    <p class="item-price">R$ 3.100,00</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RESUMO -->
+        <aside class="cart-summary">
+            <h2>Resumo</h2>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>R$ 8.550,00</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Entrega</span>
+                <span>Grátis</span>
+            </div>
+
+            <div class="summary-row">
+                <strong>Total</strong>
+                <strong>R$ 8.550,00</strong>
+            </div>
+
+            <button class="checkout-btn">Finalizar Compra</button>
+        </aside>
+
+    </div>
+</main>
+
+{% endblock %}
