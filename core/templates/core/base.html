@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRUNU'S — Produtos</title>
+    <title>BRUNU'S</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -410,20 +410,25 @@
                 <a href="{% url 'home' %}" class="nav-link">Home</a>
                 <a href="{% url 'sobre' %}" class="nav-link">Sobre</a>
                 <a href="{% url 'produtos' %}" class="nav-link">Produtos</a>
-                <a href="{% url 'carrinho' %}" class="nav-link">Carrinho</a>
                 <a href="{% url 'contato' %}" class="nav-link">Login</a>
             </nav>
 
             <!-- AÇÕES -->
             <div class="nav-actions">
-
-                <!-- BUSCA -->
-                <button class="icon-btn">
+                <button class="icon-btn" onclick="alert('Teste'); return false;">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <circle cx="11" cy="11" r="8" />
                         <path d="m21 21-4.35-4.35" />
                     </svg>
                 </button>
+                <a href="{% url 'carrinho' %}" class="icon-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <div class="badge">2</div>
+                </a>
             </div>
         </div>
     </header>

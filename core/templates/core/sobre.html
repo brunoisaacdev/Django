@@ -644,19 +644,29 @@
 
 <body> <!-- NAVBAR -->
     <header id="navbar">
-        <div class="navbar"> <!-- LOGO -->
+        <div class="navbar">
             <div class="logo"> <a href="home.html" style="text-decoration: none; color: inherit;"> BRUNU'S </a> </div>
-            <!-- MENU -->
+
             <nav class="nav-desktop"> <a href="{% url 'home' %}" class="nav-link">Home</a> <a href="{% url 'sobre' %}"
                     class="nav-link">Sobre</a> <a href="{% url 'produtos' %}" class="nav-link">Produtos</a> <a
                     href="{% url 'contato' %}" class="nav-link">Login</a> </nav> <!-- AÇÕES -->
-            <div class="nav-actions"> <!-- BUSCA --> <button class="icon-btn"> <svg viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor">
+            <div class="nav-actions"> <button class="icon-btn" onclick="alert('Teste'); return false;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <circle cx="11" cy="11" r="8" />
                         <path d="m21 21-4.35-4.35" />
-                    </svg> </button> </div>
+                    </svg>
+                </button>
+                <a href="{% url 'carrinho' %}" class="icon-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <div class="badge">2</div>
+                </a>
+            </div>
         </div>
-    </header> <!-- MANIFESTO -->
+    </header>
     <section class="manifesto container">
         <div class="manifesto-grid">
             <div class="manifesto-quote"> <span class="section-label">Nossa Filosofia</span>
@@ -703,7 +713,8 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <line x1="5" y1="12" x2="19" y2="12" />
                             <polyline points="12 5 19 12 12 19" />
-                        </svg> </button> </div>
+                        </svg> </button>
+                </div>
                 <p class="form-note">Ao se inscrever, você concorda com nossa política de privacidade. Sem spam, apenas
                     conteúdo relevante.</p>
                 <div class="newsletter-proof">
