@@ -1,317 +1,327 @@
 {% extends 'core/base.html' %}
 
+{% load currency %}
 {% load static %}
 
+{% block title %}BRUNU'S - Carrinho{% endblock %}
+
 {% block conteudo %}
-<!DOCTYPE html>
-<html lang="pt-br">
+<style>
+    .cart-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 8rem 5% 4rem;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de Compras | BRUNU'S</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #F9F7F2;
-            --text-primary: #1A1A1A;
-            --text-secondary: #666666;
-            --accent-color: #A67C52;
-            /* Tom de marrom/couro sutil */
-            --border-color: #E5E1D8;
-            --white: #FFFFFF;
+    .cart-title {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        font-weight: 400;
+        margin-bottom: 3rem;
+    }
+
+    .cart-container {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr);
+        gap: 4rem;
+        align-items: start;
+    }
+
+    .cart-items {
+        border-top: 1px solid var(--border);
+    }
+
+    .cart-item {
+        display: flex;
+        gap: 1.5rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .item-image {
+        width: 120px;
+        height: 160px;
+        flex: 0 0 120px;
+        background: #e8e3db;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .item-details {
+        min-width: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+    }
+
+    .item-category {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+    }
+
+    .item-name {
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    .item-variant {
+        margin-top: 0.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+    }
+
+    .item-variant span {
+        border: 1px solid var(--border);
+        padding: 0.35rem 0.6rem;
+    }
+
+    .item-price {
+        flex-shrink: 0;
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .item-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .quantity-pill {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .item-subtotal {
+        font-size: 0.85rem;
+        color: var(--muted);
+    }
+
+    .remove-btn {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+        transition: color 0.3s;
+    }
+
+    .remove-btn:hover {
+        color: var(--accent);
+    }
+
+    .cart-summary {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        padding: 2rem;
+        position: sticky;
+        top: 6rem;
+    }
+
+    .summary-title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .summary-row.total {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .checkout-btn,
+    .continue-shopping {
+        width: 100%;
+        min-height: 3.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.75rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .checkout-btn {
+        margin-top: 1.5rem;
+        background: var(--fg);
+        color: var(--bg);
+        border: 0;
+        transition: background 0.3s;
+    }
+
+    .checkout-btn:hover {
+        background: var(--accent);
+    }
+
+    .continue-shopping {
+        margin-top: 1rem;
+        border: 1px solid var(--border);
+        color: var(--fg);
+    }
+
+    .empty-cart {
+        padding: 3rem 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+        .cart-container {
+            grid-template-columns: 1fr;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .cart-summary {
+            position: static;
         }
+    }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 5%;
+    @media (max-width: 560px) {
+        .cart-page {
+            padding-inline: 1.5rem;
         }
 
         .cart-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            font-weight: 400;
-        }
-
-        .cart-container {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 4rem;
-        }
-
-        @media (max-width: 900px) {
-            .cart-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Itens do Carrinho */
-        .cart-items {
-            border-top: 1px solid var(--border-color);
+            font-size: 2.25rem;
         }
 
         .cart-item {
-            display: flex;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border-color);
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .item-image {
-            width: 120px;
-            height: 160px;
-            background-color: #E0E0E0;
-            object-fit: cover;
+            width: 88px;
+            height: 118px;
+            flex-basis: 88px;
         }
 
-        .item-details {
-            flex-grow: 1;
-            display: flex;
+        .item-header,
+        .item-controls {
             flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
             align-items: flex-start;
         }
+    }
+</style>
 
-        .item-category {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
+<main class="cart-page">
+    <h1 class="cart-title">Seu Carrinho</h1>
 
-        .item-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
+    <div class="cart-container">
+        <section class="cart-items" aria-label="Itens do carrinho">
+            {% for item in itens %}
+            <article class="cart-item">
+                {% if item.product.image %}
+                <img class="item-image" src="{% static item.product.image %}?v={% now 'U' %}" alt="{{ item.product.name }}">
+                {% else %}
+                <div class="item-image" aria-hidden="true"></div>
+                {% endif %}
 
-        .item-price {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .item-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-        }
-
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            padding: 0.25rem 0.5rem;
-        }
-
-        .quantity-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0 0.5rem;
-            font-size: 1rem;
-        }
-
-        .quantity-value {
-            padding: 0 1rem;
-            font-size: 0.85rem;
-        }
-
-        .remove-btn {
-            background: none;
-            border: none;
-            text-decoration: underline;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-
-        /* Resumo do Pedido */
-        .cart-summary {
-            background-color: var(--white);
-            padding: 2.5rem;
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
-        }
-
-        .summary-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .summary-row.total {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background-color: var(--text-primary);
-            color: var(--white);
-            border: none;
-            padding: 1.2rem;
-            margin-top: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .checkout-btn:hover {
-            opacity: 0.9;
-        }
-
-        .continue-shopping {
-            display: block;
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            text-decoration: none;
-        }
-
-        footer {
-            padding: 4rem 5%;
-            text-align: center;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
-        }
-    </style>
-</head>
-
-<body>
-
-    <main>
-        <h1 class="cart-title">Seu Carrinho</h1>
-
-        <div class="cart-container">
-            <!-- Lista de Itens -->
-            <div class="cart-items">
-
-                <!-- Item 1 -->
-                <div class="cart-item">
-                    <div class="item-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1594932224828-b4b057b7d6ee?auto=format&fit=crop&q=80&w=300'); background-size: cover;">
+                <div class="item-details">
+                    <div class="item-header">
+                        <div>
+                            <p class="item-category">{{ item.product.category.name }}</p>
+                            <h2 class="item-name">{{ item.product.name }}</h2>
+                            {% if item.variant %}
+                            <div class="item-variant">
+                                <span>Tamanho: {{ item.variant.size }}</span>
+                                <span>Cor: {{ item.variant.color }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <p class="item-price">{{ item.price_at_time|brl }}</p>
                     </div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <div>
-                                <p class="item-category">01 — Mulher</p>
-                                <h2 class="item-name">Terno Greige Estruturado</h2>
-                            </div>
-                            <p class="item-price">R$ 5.450,00</p>
-                        </div>
-                        <div class="item-controls">
-                            <div class="quantity-selector">
-                                <button class="quantity-btn">-</button>
-                                <span class="quantity-value">1</span>
-                                <button class="quantity-btn">+</button>
-                            </div>
-                            <button class="remove-btn">Remover</button>
-                        </div>
+
+                    <div class="item-controls">
+                        <span class="quantity-pill">Quantidade: {{ item.quantity }}</span>
+                        <span class="item-subtotal">Subtotal: {{ item.subtotal|brl }}</span>
+                        <form method="post" action="{% url 'remover_carrinho_item' item.id %}">
+                            {% csrf_token %}
+                            <button class="remove-btn" type="submit">Remover</button>
+                        </form>
                     </div>
                 </div>
+            </article>
+            {% empty %}
+            <div class="empty-cart">
+                <p>Seu carrinho esta vazio.</p>
+            </div>
+            {% endfor %}
+        </section>
 
-                <!-- Item 2 -->
-                <div class="cart-item">
-                    <div class="item-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=300'); background-size: cover;">
-                    </div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <div>
-                                <p class="item-category">01 — Mulher</p>
-                                <h2 class="item-name">Kit Acessórios Cognac</h2>
-                            </div>
-                            <p class="item-price">R$ 3.100,00</p>
-                        </div>
-                        <div class="item-controls">
-                            <div class="quantity-selector">
-                                <button class="quantity-btn">-</button>
-                                <span class="quantity-value">1</span>
-                                <button class="quantity-btn">+</button>
-                            </div>
-                            <button class="remove-btn">Remover</button>
-                        </div>
-                    </div>
-                </div>
-
+        <aside class="cart-summary">
+            <h2 class="summary-title">Resumo do Pedido</h2>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>{{ total|brl }}</span>
+            </div>
+            <div class="summary-row">
+                <span>Entrega</span>
+                <span>Grátis</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>{{ total|brl }}</span>
             </div>
 
-            <!-- Resumo -->
-            <aside class="cart-summary">
-                <h2 class="summary-title">Resumo do Pedido</h2>
-                <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span>R$ 8.550,00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Entrega</span>
-                    <span>Grátis</span>
-                </div>
-                <div class="summary-row total">
-                    <span>Total</span>
-                    <span>R$ 8.550,00</span>
-                </div>
+            {% if itens %}
+            <form method="post" action="{% url 'finalizar_venda' %}">
+                {% csrf_token %}
+                <button class="checkout-btn" type="submit">
+                    {% if user.is_authenticated %}Finalizar Compra{% else %}Entrar e Finalizar{% endif %}
+                </button>
+            </form>
+            {% else %}
+            <button class="checkout-btn" type="button"
+                onclick="alert('Adicione um produto ao carrinho antes de finalizar.')">
+                Finalizar Compra
+            </button>
+            {% endif %}
 
-                <button class="checkout-btn">Finalizar Compra</button>
-                <a href="#" class="continue-shopping">Continuar Comprando</a>
-            </aside>
-        </div>
-    </main>
+            <a href="{% url 'produtos' %}" class="continue-shopping">Continuar Comprando</a>
+        </aside>
+    </div>
+</main>
 
-    <footer>
-        &copy; 2026 BRUNU'S — Alta Costura & Design
-    </footer>
-
-</body>
-
-</html>
-
-
+{% if venda_finalizada %}
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        alert("Venda finalizada com sucesso!");
+    });
+</script>
+{% endif %}
 {% endblock %}

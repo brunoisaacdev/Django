@@ -1,0 +1,254 @@
+{% extends 'core/base.html' %}
+
+{% load currency %}
+{% load static %}
+
+{% block title %}BRUNU'S - Minhas Compras{% endblock %}
+
+{% block conteudo %}
+<style>
+    .orders-page {
+        padding: 9rem 1.5rem 5rem;
+    }
+
+    @media (min-width: 1024px) {
+        .orders-page {
+            padding: 9rem 3rem 5rem;
+        }
+    }
+
+    .orders-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .orders-title {
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        line-height: 1;
+        font-weight: 500;
+    }
+
+    .orders-title em {
+        font-style: italic;
+        font-weight: 400;
+        color: rgba(38, 36, 32, 0.58);
+    }
+
+    .orders-header p {
+        max-width: 28rem;
+        color: var(--muted);
+    }
+
+    .orders-list {
+        display: grid;
+        gap: 1.25rem;
+    }
+
+    .order {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.55);
+    }
+
+    .order-summary {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 1rem;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .order-code {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+
+    .order-date {
+        color: var(--muted);
+        font-size: 0.9rem;
+    }
+
+    .order-status,
+    .order-total {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .order-status {
+        border: 1px solid rgba(90, 128, 91, 0.35);
+        padding: 0.45rem 0.65rem;
+        color: #4f7252;
+    }
+
+    .order-total {
+        color: var(--fg);
+        text-align: right;
+    }
+
+    .order-items {
+        display: grid;
+        gap: 0;
+    }
+
+    .order-item {
+        display: grid;
+        grid-template-columns: 76px minmax(0, 1fr) auto;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem 1.5rem;
+    }
+
+    .order-item+.order-item {
+        border-top: 1px solid var(--border);
+    }
+
+    .order-item-image {
+        width: 76px;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        object-position: top;
+        background: #e8e3db;
+    }
+
+    .order-item-category {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.25rem;
+    }
+
+    .order-item-name {
+        font-weight: 500;
+        line-height: 1.25;
+        margin-bottom: 0.4rem;
+    }
+
+    .order-item-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        color: var(--muted);
+        font-size: 0.82rem;
+    }
+
+    .order-item-subtotal {
+        font-family: var(--font-display);
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .empty-orders {
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 3rem 0;
+        color: var(--muted);
+    }
+
+    .empty-orders a {
+        color: var(--fg);
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+    }
+
+    @media (max-width: 760px) {
+
+        .orders-header,
+        .order-summary {
+            grid-template-columns: 1fr;
+        }
+
+        .orders-header {
+            align-items: flex-start;
+        }
+
+        .order-summary {
+            align-items: flex-start;
+        }
+
+        .order-total {
+            text-align: left;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .orders-page {
+            padding-top: 8rem;
+        }
+
+        .order-item {
+            grid-template-columns: 64px minmax(0, 1fr);
+        }
+
+        .order-item-subtotal {
+            grid-column: 2;
+        }
+    }
+</style>
+
+<main class="orders-page container">
+    <section class="orders-header">
+        <div>
+            <span class="section-label">Minha conta</span>
+            <h1 class="orders-title">Minhas<br><em>compras</em></h1>
+        </div>
+        <p>Acompanhe aqui o hitórico de suas compras.</p>
+    </section>
+
+    <section class="orders-list" aria-label="Compras anteriores">
+        {% for pedido in pedidos %}
+        <article class="order">
+            <div class="order-summary">
+                <div>
+                    <span class="order-code">Pedido #{{ pedido.id }}</span>
+                    <span class="order-date">{{ pedido.created_at|date:"d/m/Y H:i" }}</span>
+                </div>
+                <span class="order-status">{{ pedido.get_status_display }}</span>
+                <span class="order-total">{{ pedido.total|brl }}</span>
+            </div>
+
+            <div class="order-items">
+                {% for item in pedido.items.all %}
+                <div class="order-item">
+                    {% if item.image %}
+                    <img class="order-item-image" src="{% static item.image %}?v={% now 'U' %}"
+                        alt="{{ item.product_name }}">
+                    {% else %}
+                    <div class="order-item-image" aria-hidden="true"></div>
+                    {% endif %}
+
+                    <div>
+                        <p class="order-item-category">{{ item.category_name }}</p>
+                        <h2 class="order-item-name">{{ item.product_name }}</h2>
+                        <div class="order-item-meta">
+                            <span>Quantidade: {{ item.quantity }}</span>
+                            {% if item.variant_size %}<span>Tamanho: {{ item.variant_size }}</span>{% endif %}
+                            {% if item.variant_color %}<span>Cor: {{ item.variant_color }}</span>{% endif %}
+                            <span>Preço: {{ item.price_at_time|brl }}</span>
+                        </div>
+                    </div>
+
+                    <span class="order-item-subtotal">{{ item.subtotal|brl }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </article>
+        {% empty %}
+        <div class="empty-orders">
+            <p>Você ainda não finalizou nenhuma compra.</p>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

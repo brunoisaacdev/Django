@@ -14,24 +14,51 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from core.views import sobre, home, produtos, contato, produto_detalhes, carrinho, add_carrinho
-from django.conf import settings
-from django.conf.urls.static import static
+from core.views import (
+    AddCarrinhoView,
+    AdminItemCreateView,
+    AdminItemDeleteView,
+    AdminItemListView,
+    AdminItemUpdateView,
+    CarrinhoView,
+    ContatoView,
+    FinalizarVendaView,
+    HomeView,
+    LogoutView,
+    MinhasComprasView,
+    ProdutoDetalhesView,
+    ProdutosListView,
+    RemoverCarrinhoItemView,
+    SobreView,
+)
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
-    path('sobre/', sobre, name='sobre'),
-    path('produtos/', produtos, name='produtos'),
-    path('contato/', contato, name='contato'),
-    path('produto_detalhes/<int:id>/', produto_detalhes, name='produto_detalhes'),
-    path('add-carrinho/<int:id>/', add_carrinho, name='add_carrinho'),
-    path('carrinho/', carrinho, name='carrinho'),
+    path('', HomeView.as_view(), name='home'),
+    path('sobre/', SobreView.as_view(), name='sobre'),
+    path('produtos/', ProdutosListView.as_view(), name='produtos'),
+    path('administrativo/itens/', AdminItemListView.as_view(), name='admin_itens'),
+    path('administrativo/itens/novo/', AdminItemCreateView.as_view(), name='admin_item_create'),
+    path('administrativo/itens/<int:pk>/editar/', AdminItemUpdateView.as_view(), name='admin_item_update'),
+    path('administrativo/itens/<int:pk>/excluir/', AdminItemDeleteView.as_view(), name='admin_item_delete'),
+    path('contato/', ContatoView.as_view(), name='contato'),
+    path('minhas-compras/', MinhasComprasView.as_view(), name='minhas_compras'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('produto_detalhes/<int:id>/', ProdutoDetalhesView.as_view(), name='produto_detalhes'),
+    path('add-carrinho/<int:id>/', AddCarrinhoView.as_view(), name='add_carrinho'),
+    path('remover-carrinho/<int:id>/', RemoverCarrinhoItemView.as_view(), name='remover_carrinho_item'),
+    path('carrinho/', CarrinhoView.as_view(), name='carrinho'),
+    path('finalizar-venda/', FinalizarVendaView.as_view(), name='finalizar_venda'),
 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

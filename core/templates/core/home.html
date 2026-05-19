@@ -1,12 +1,17 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRUNU'S — Home</title>
+    <title>BRUNU'S - Home</title>
     <meta name="description"
         content="BRUNU'S — Moda de grife com curadoria exclusiva. Coleções femininas, masculinas e acessórios de luxo." />
+    <link rel="icon" href="{% static 'imagens/favicon.png' %}?v=2" type="image/png" />
+    <link rel="shortcut icon" href="{% static 'imagens/favicon.ico' %}?v=2" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{% static 'imagens/favicon.png' %}?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -145,7 +150,7 @@
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .icon-btn {
@@ -161,6 +166,77 @@
 
         .icon-btn:hover {
             color: var(--fg);
+        }
+
+        .search-form {
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid transparent;
+            background: rgba(248, 245, 240, 0.62);
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .search-form:focus-within {
+            border-color: var(--border);
+            background: rgba(248, 245, 240, 0.96);
+        }
+
+        .search-input {
+            width: 8rem;
+            height: 100%;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: var(--fg);
+            padding: 0 0 0 0.75rem;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+        }
+
+        .search-input::placeholder {
+            color: rgba(38, 36, 32, 0.45);
+        }
+
+        .search-submit {
+            width: 2rem;
+            height: 2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(38, 36, 32, 0.65);
+            transition: color 0.3s;
+        }
+
+        .search-submit:hover {
+            color: var(--fg);
+        }
+
+        .account-link {
+            width: auto;
+            min-width: 2rem;
+            height: 2rem;
+            gap: 0.45rem;
+            padding: 0 0.75rem;
+            border: 1px solid transparent;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .account-link:hover {
+            border-color: var(--border);
+        }
+
+        @media (max-width: 560px) {
+            .search-input {
+                width: 5.5rem;
+            }
+
+            .account-link {
+                padding: 0 0.55rem;
+            }
         }
 
         .badge {
@@ -526,6 +602,7 @@
         }
 
         .category-card {
+            display: block;
             position: relative;
             overflow: hidden;
             cursor: pointer;
@@ -1280,6 +1357,8 @@
         }
 
         /* ===== UTILITIES ===== */
+        {% include 'core/partials/navbar_styles.html' %}
+
         svg {
             width: 1em;
             height: 1em;
@@ -1290,48 +1369,11 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <header id="navbar">
-        <div class="navbar">
-
-            <!-- LOGO -->
-            <div class="logo">
-                <a href="home.html" style="text-decoration: none; color: inherit;">
-                    BRUNU'S
-                </a>
-            </div>
-
-            <!-- MENU -->
-            <nav class="nav-desktop">
-                <a href="{% url 'home' %}" class="nav-link">Home</a>
-                <a href="{% url 'sobre' %}" class="nav-link">Sobre</a>
-                <a href="{% url 'produtos' %}" class="nav-link">Produtos</a>
-                <a href="{% url 'contato' %}" class="nav-link">Login</a>
-            </nav>
-
-            <!-- AÇÕES -->
-            <div class="nav-actions">
-                <button class="icon-btn" onclick="alert('Teste'); return false;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <circle cx="11" cy="11" r="8" />
-                        <path d="m21 21-4.35-4.35" />
-                    </svg>
-                </button>
-                <a href="{% url 'carrinho' %}" class="icon-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    <div class="badge">2</div>
-                </a>
-            </div>
-        </div>
-    </header>
+    {% include 'core/partials/navbar.html' %}
     <!-- HERO -->
     <section class="hero">
         <div class="hero-image">
-            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/hero-fashion-HXWzAiyDt9UCms4hN7nTnf.webp"
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663522385864/ZfyBzKadkxvcRBtp.png"
                 alt="BRUNU'S — Coleção Primavera 2025">
             <div class="hero-badge">
                 <p>Coleção</p>
@@ -1407,13 +1449,14 @@
             <p class="section-desc">Cada peça é uma declaração de intenção sobre como você quer ser visto no mundo.</p>
         </div>
         <div class="categories-grid">
-            <div class="category-card" onclick="alert('Em breve'); return false;">
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/collection-women-7mb9VLhSoo3DTMnhHfMMsv.webp"
+            <a href="{% url 'produtos' %}" class="category-card">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663522385864/YMJlFtLmLDFSGagz.webp"
                     alt="Mulher">
                 <div class="category-overlay">
                     <div class="category-content">
                         <div class="category-info">
-
+                            <p>02 — Coleção Feminina</p>
+                            <h3>Mulher</h3>
                         </div>
                         <div class="category-arrow">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -1423,9 +1466,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="category-card" onclick="alert('Em breve'); return false;">
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/collection-men-MjwiVL5kzs6YDgtUDkKJsB.webp"
+            </a>
+            <a href="{% url 'produtos' %}" class="category-card">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663522385864/ektTpQYCOeWCniOu.webp"
                     alt="Homem">
                 <div class="category-overlay">
                     <div class="category-content">
@@ -1441,9 +1484,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="category-card" onclick="alert('Em breve'); return false;">
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663522385864/GqAC5GmafaCyWk9P44vt3E/accessories-PApRL8CpL3ecJUtDbg6toa.webp"
+            </a>
+            <a href="{% url 'produtos' %}" class="category-card">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663522385864/WpODTCLJHvQEZnSt.webp"
                     alt="Acessórios">
                 <div class="category-overlay">
                     <div class="category-content">
@@ -1459,7 +1502,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
